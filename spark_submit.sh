@@ -1,0 +1,26 @@
+/usr/hdp/current/spark2-client/bin/spark-submit \
+--master yarn \
+--deploy-mode cluster \
+--queue Lock2Close \
+--name govt15_1_2 \
+--principal 'svc-dl-rev-risk@MI.CORP.ROCKFIN.COM' \
+--keytab '/etc/security/keytabs/svc-dl-rev-risk.keytab' \
+--executor-cores 1 \
+--executor-memory 2g \
+--driver-cores 2 \
+--driver-memory 19g \
+--conf spark.driver.memoryOverhead=2g \
+--conf spark.driver.maxResultSize=3g \
+--conf spark.ui.retainedJobs=200 \
+--conf spark.ui.retainedStages=200 \
+--conf spark.ui.retainedTasks=200 \
+--conf spark.sql.ui.retainedExecutions=200 \
+--conf spark.streaming.ui.retainedBatches=200 \
+--conf spark.shuffle.service.enabled=true \
+--conf spark.dynamicAllocation.enabled=true \
+--conf spark.dynamicAllocation.initialExecutors=20 \
+--conf spark.dynamicAllocation.maxExecutors=50 \
+--conf spark.yarn.executor.memoryOverhead=2g \
+--conf spark.yarn.submit.waitAppCompletion=false \
+--files /etc/spark2/conf/hive-site.xml \
+--py-files jobs.zip main.py

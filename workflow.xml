@@ -1,0 +1,20 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<workflow-app xmlns="uri:oozie:workflow:0.5" name="govt15_1_2">
+    <start to="l2c_sample"/>
+    <action name="l2c_sample">
+        <shell xmlns="uri:oozie:shell-action:0.3">
+            <job-tracker>${resourceManager}</job-tracker>
+            <name-node>${nameNode}</name-node>
+            <exec>spark_submit.sh</exec>
+            <file>/user/svc-dl-rev-risk/jobber_run/sample_Xin/jobs.zip</file>
+            <file>/user/svc-dl-rev-risk/jobber_run/sample_Xin/main.py</file>
+            <file>/user/svc-dl-rev-risk/jobber_run/sample_Xin/spark_submit.sh</file>
+        </shell>
+        <ok to="end"/>
+        <error to="kill"/>
+    </action>
+    <kill name="kill">
+        <message>${wf:errorMessage(wf:lastErrorNode())}</message>
+    </kill>
+    <end name="end"/>
+</workflow-app>
